@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@ffprobe-installer/ffprobe": "^1.4.1",
     "@ozawa/express-audit-log-middleware": "^0.2.0",
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
@@ -26,6 +27,7 @@
     "ffmpeg": "^0.0.4",
     "ffprobe": "^1.1.2",
     "ffprobe-static": "^3.1.0",
+    "fluent-ffmpeg": "^2.1.2",
     "fs": "^0.0.1-security",
     "google-auth-library": "^8.0.3",
     "googleapis": "^104.0.0",
@@ -46,6 +48,7 @@
     "path": "^0.12.7",
     "rand-token": "^1.0.1",
     "rotating-file-stream": "^3.0.4",
+    "thumbsupply": "^0.4.0",
     "uuid": "^8.3.2",
     "validator": "^13.7.0",
     "winston": "^3.7.2",

@@ -27,6 +27,7 @@ const storage = multer.diskStorage({
             cb(null, "public/image")
         }
 
+
     },
     filename: (req, file, cb) => {
 
@@ -41,8 +42,6 @@ const storage = multer.diskStorage({
 
         }else  if(helperFunc.getMediaType(file) == "image" ){
             cb(null, `image-${uuid()}.jpg`);
-
-           
         }
 
     }

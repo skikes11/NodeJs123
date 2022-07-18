@@ -43,10 +43,10 @@ const mediaController = {
                     image.image_url = `/static/image/${req.file.filename}`
                     image.save();
                 }
-                console.log("upload image completed")
 
                 res.status(200).json({
-                    "message": "upload audio completed"
+                    "message": "upload audio completed",
+                    "MEDIA URL" : req.file.path
                 })
 
             })
@@ -62,12 +62,15 @@ const mediaController = {
 
             uploadFile(req, res, async (err) => {
                 console.log(req.file)
+
+
                 if (err) {
                     return res.status(403).json({
                         "message": err.message
                     })
                 } else if (req.file) {
 
+                    console.log("#file Path" + req.file.path)
                     
                     if (helperFunc.getMediaType(req.file) == "audio") {
 
@@ -94,17 +97,51 @@ const mediaController = {
                         image.save();
                         helperFunc.getMediaInfor(req,res,req.file.path);
                     }
-                    console.log("upload image completed")
+                    console.log("get info by upload new")
 
                     
 
-                }else{ 
+                }else{
+
+                    const MediaName = req.body.mediaName;
+                    if(MediaName.charAt(0) ==='a'){   // Check Media name type
+
+                        const audio = await audioModel.findOne({ audio_id : req.body.mediaName })
+                        
+                        const audioPath = audio.audio_url.replace('static', 'public').substring(1)   //get media Path link public/video.../.../
+
+                        helperFunc.getMediaInfor(req,res,audioPath)
+
+                    }else if(MediaName.charAt(0) ==='v'){
+
+                        console.log(req.body)
+
+                        const video = await videoModel.findOne({ video_id : req.body.mediaName })
+                        
+                        console.log("##v" + video)
+
+                        const videoPath = video.video_url.replace('static', 'public').substring(1)
+                    
+                        console.log(videoPath)
 
 
+                        helperFunc.getMediaInfor(req,res,videoPath)
+
+                    }else if(MediaName.charAt(0) ==='i'){
+
+
+                        console.log(req.body)
+
+                        const image = await imageModel.findOne({ image_id : req.body.mediaName })
+                        
+                        const imagePath = image.image_url.replace('static', 'public').substring(1)
+
+                        helperFunc.getMediaInfor(req,res,imagePath)
+                    } 
 
                 }
 
-
+                console.log("get info by id")
             })
 
 
