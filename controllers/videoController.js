@@ -68,6 +68,7 @@ function resizeVideo(res, input, output, displayResolution, callback) {
         size = "3860x2160"
     }
 
+
     ffmpeg_flu()
         .input(input)
         .output(output)
@@ -114,8 +115,6 @@ function convert(input, output, callback) {
 }
 
 
-
-
 const videoController = {
     UploadAndGet_ThumbnailOfvideo: async (req, res) => {
         try {
@@ -149,7 +148,6 @@ const videoController = {
 
                     })
             })
-
 
         } catch (err) {
             res.status(400).json(err.message);
@@ -278,6 +276,30 @@ const videoController = {
                 const audioPath = `public/audio/audio-${uuid()}.mp3`
 
 
+
+
+                ffmpeg_flu()
+                .input(req.file.path)
+                .output(audioPath)
+                .videoCodec('libx264')
+                .noAudio()
+                .format('mp4')
+                .on('end', function () {
+                    console.log('conversion ended');
+                })
+                .on('error', function (err) {
+                    console.log('An error occurred: ' + err.message);
+        
+                })
+                .on('progress', function (progress) {
+                    console.log('... frames: ' + progress.frames);
+        
+                })
+                .on('end', function () {
+                    console.log('Finished processing');
+        
+                })
+                .run();
             
                     
                     
@@ -299,7 +321,6 @@ const videoController = {
                     console.log('Error: ' + err);
                 });
                 
-
 
                 // exec(`ffmpeg -i ${req.file.path}  ${audioPath}`, (err, output) => {
                 //     // once the command has completed, the callback function is called

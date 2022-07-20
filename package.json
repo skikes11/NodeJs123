@@ -51,6 +51,7 @@
     "path": "^0.12.7",
     "rand-token": "^1.0.1",
     "rotating-file-stream": "^3.0.4",
+    "sharp": "^0.30.7",
     "thumbsupply": "^0.4.0",
     "uuid": "^8.3.2",
     "validator": "^13.7.0",

@@ -22,6 +22,7 @@ const helperFunc = {
             } else {
                 console.log(info);
                 return res.status(200).json({
+                    "MEDIA_URL": path,
                     "info": info
                 })
             }
@@ -50,6 +51,13 @@ const helperFunc = {
     },
     checkMimeTypeAudio: (file) => {
         if (file.mimetype == "audio/mpeg" || file.mimetype == "audio/x-aiff" || file.mimetype == "application/ogg" || file.mimetype == "audio/mp4") {
+            return true
+        }else{
+            return false
+        }
+    },
+    checkMimeTypeImage: (file) => {
+        if (file.mimetype == "image/jpeg" || file.mimetype == "image/png" || file.mimetype == "image/tiff" || file.mimetype == "image/gif") {
             return true
         }else{
             return false
