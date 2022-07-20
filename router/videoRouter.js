@@ -53,6 +53,13 @@ videoRouter.get("/extract", async (req, res) => {
    
  });
 
+// EXTRACT VIDEO 
+
+videoRouter.get("/resize", async (req, res) => {
+    
+    videoController.resizingVideo(req,res)
+   
+ });
 
 
 

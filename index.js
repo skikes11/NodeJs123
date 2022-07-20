@@ -9,6 +9,11 @@ const dotenv = require("dotenv");
 const myRouter = require("./router/index");
 const cookieParser = require('cookie-parser');
 var flash = require('connect-flash');
+const fs = require('fs');
+var path = require('path')
+var rfs = require('rotating-file-stream') // version 2.x
+const { format } = require('date-fns');
+
 dotenv.config();    
 //connect database
 mongoose.connect((process.env.MONGODB_URL),()=>{
@@ -40,7 +45,24 @@ app.set("views","./view");
 app.use('/static', express.static('public'))
 
 app.use(cors());
-app.use(morgan("common"));  
+
+
+
+function logFilename(time) {
+    if (!time) return 'access.log';
+    return `${format(time, 'yyyy-MM-dd')}-access.log`;
+  }
+
+// create a rotating write stream
+var accessLogStream = rfs.createStream(logFilename(new Date()), {
+    interval: '1d', // rotate daily
+    path: path.join(__dirname, 'logging/logger')
+})
+
+
+// setup the logger
+app.use(morgan('common', { stream: accessLogStream }))
+
 
 // API
 app.use("/api", myRouter);   

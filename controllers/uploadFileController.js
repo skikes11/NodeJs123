@@ -25,6 +25,8 @@ const storage = multer.diskStorage({
             cb(null, "public/video")
         }else  if(helperFunc.getMediaType(file) == "image"){
             cb(null, "public/image")
+        }else{
+            cb(new Error("input file invalid"), null)
         }
 
 
@@ -42,6 +44,8 @@ const storage = multer.diskStorage({
 
         }else  if(helperFunc.getMediaType(file) == "image" ){
             cb(null, `image-${uuid()}.jpg`);
+        }else{
+            cb(new Error("403 error"), null)
         }
 
     }
