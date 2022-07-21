@@ -33,7 +33,7 @@ function mergeMedia(aud, vid, output, callback) {
         .output(output)
         .outputOptions(
             '-strict', '-2',
-            '-map', '0:0',
+            '-map', '1:0',
             '-map', '1:0'
         ).on('end', function () {
             console.log('conversion ended');

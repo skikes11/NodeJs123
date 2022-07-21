@@ -58,7 +58,6 @@ const imageController = {
                     .catch(function (err) {
                         console.log("Error occured");
                     });
-
             })
 
 
